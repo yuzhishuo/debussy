@@ -3,12 +3,13 @@
 #include <string>
 #include <fstream>
 #include <exception>
+#include <memory>
 
-// costom
+// custom
 #include "determin_skip_list.h"
 
 using namespace std;
-using namespace skip_list;
+using namespace debussy;
 
 /**
  * TestSkipList is the kernal test fuction of Insert,Search and Remove of a
@@ -51,20 +52,20 @@ void TestSkipList(DeterminSkipList<T>& skip_list, ifstream& in, ofstream& out)
 int main(int argc, char* argv[])
 {
     if (argc != 3) {
-        cout << "Usage is : "
-            << "test_determin_skip_list <input_file> <output_file>"
-            << endl;
+        cout << "Usage is : ""test_determin_skip_list <input_file> <output_file>"<< endl;
         return -1;
     }
-    ///argv[1] the name of the file to open
-    ///argv[2] the name of the file to wirte
+
     ifstream in(argv[1]);
+    
     if (!in) {
         cout << "Could not find the file named "
             << argv[1] << " to open!" << endl;
         return -1;
     }
+
     ofstream out(argv[2]);
+
     ///create a empty skip list key type is string,
     ///assumming for any input key value
     ///key value < Max < Max_1
@@ -76,9 +77,9 @@ int main(int argc, char* argv[])
     DeterminSkipList<string> skip_list(Max, Max_1);
 
     try {
-        TestSkipList(skip_list, in, out); ///The main test process
+        TestSkipList(skip_list, in, out);
     }
-    catch (std::bad_alloc&) { ///will exit if can not allocate more space
+    catch (std::bad_alloc&) {
         cout << "no more available memory" << endl;
         in.close();
         out.close();
